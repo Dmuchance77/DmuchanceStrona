@@ -1,1 +1,530 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel administracyjny | Wypożyczalnia dmuchańców</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --admin-primary: #6B6BFF;
+            --admin-secondary: #4ECDC4;
+            --admin-accent: #FFE66D;
+            --admin-dark: #292F36;
+            --admin-light: #F7FFF7;
+            --admin-success: #6BCB77;
+            --admin-error: #FF6B6B;
+            --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--admin-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            z-index: -1;
+        }
+
+        .admin-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 3rem auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
+            background-size: 200% 200%;
+            animation: gradientBG 8s ease infinite;
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .admin-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .admin-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .admin-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .admin-content {
+            padding: 3rem;
+        }
+
+        .admin-form {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--admin-dark);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            font-size: 1rem;
+            background: #f9f9f9;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--admin-primary);
+            box-shadow: 0 0 0 3px rgba(107, 107, 255, 0.2);
+            background: white;
+        }
+
+        .admin-btn {
+            background: linear-gradient(to right, var(--admin-primary), var(--admin-secondary));
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            font-size: 1.1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            background: linear-gradient(to right, var(--admin-secondary), var(--admin-primary));
+        }
+
+        .admin-btn i {
+            transition: var(--transition);
+        }
+
+        .admin-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .product-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--admin-primary);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .product-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--admin-dark);
+            margin-bottom: 1rem;
+        }
+
+        .product-controls {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .availability-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: '';
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--admin-success);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .price-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .price-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: var(--admin-primary);
+        }
+
+        .price-label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--admin-primary);
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .back-to-home i {
+            transition: var(--transition);
+        }
+
+        .back-to-home:hover {
+            color: var(--admin-secondary);
+        }
+
+        .back-to-home:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Responsywność */
+        @media (max-width: 768px) {
+            .admin-container {
+                width: 95%;
+                margin: 2rem auto;
+            }
+
+            .admin-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .admin-title {
+                font-size: 2rem;
+            }
+
+            .admin-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .admin-title {
+                font-size: 1.8rem;
+            }
+
+            .product-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .price-control {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <div class="admin-header-content">
+                <h1 class="admin-title"><i class="fas fa-lock"></i> Panel Administracyjny</h1>
+                <p class="admin-subtitle">Zarządzaj wypożyczalnią dmuchańców</p>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            <form id="adminLoginForm" class="admin-form">
+                <div class="form-group">
+                    <label for="adminUsername">Login</label>
+                    <input type="text" id="adminUsername" class="form-control" placeholder="Wprowadź login" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminPassword">Hasło</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="Wprowadź hasło" required>
+                </div>
+
+                <button type="submit" class="admin-btn">Zaloguj się <i class="fas fa-sign-in-alt"></i></button>
+            </form>
+
+            <div id="adminDashboard" style="display: none;">
+                <h2 style="margin-bottom: 2rem; font-family: 'Montserrat', sans-serif; color: var(--admin-dark);">Zarządzanie produktami</h2>
+
+                <div class="product-card">
+                    <h3 class="product-title">Zjeżdżalnia XXL</h3>
+                    <div class="product-controls">
+                        <div class="availability-toggle">
+                            <span>Dostępność:</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="product1Status" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span id="product1StatusText">Dostępny</span>
+                        </div>
+
+                        <div class="price-control">
+                            <span class="price-label">Cena:</span>
+                            <input type="number" id="product1Price" class="price-input" value="300" min="0">
+                            <span>zł/dzień</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Zamek do skakania</h3>
+                    <div class="product-controls">
+                        <div class="availability-toggle">
+                            <span>Dostępność:</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="product2Status" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span id="product2StatusText">Dostępny</span>
+                        </div>
+
+                        <div class="price-control">
+                            <span class="price-label">Cena:</span>
+                            <input type="number" id="product2Price" class="price-input" value="250" min="0">
+                            <span>zł/dzień</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <h3 class="product-title">Kombajn atrakcji</h3>
+                    <div class="product-controls">
+                        <div class="availability-toggle">
+                            <span>Dostępność:</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="product3Status">
+                                <span class="slider"></span>
+                            </label>
+                            <span id="product3StatusText">Niedostępny</span>
+                        </div>
+
+                        <div class="price-control">
+                            <span class="price-label">Cena:</span>
+                            <input type="number" id="product3Price" class="price-input" value="500" min="0">
+                            <span>zł/dzień</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="admin-btn" id="saveChangesBtn">Zapisz zmiany <i class="fas fa-save"></i></button>
+                <a href="index.html" class="back-to-home"><i class="fas fa-arrow-left"></i> Wróć do strony głównej</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dane logowania (do zmiany w przyszłości)
+        const ADMIN_CREDENTIALS = {
+            login: 'admin',
+            password: 'admin'
+        };
+
+        // Obsługa formularza logowania
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            if (username === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
+                // Pomyślne logowanie
+                document.getElementById('adminLoginForm').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                
+                // Załaduj aktualne dane produktów
+                loadProductData();
+            } else {
+                alert('Błędny login lub hasło! Spróbuj ponownie.');
+            }
+        });
+
+        // Funkcja ładująca dane produktów
+        function loadProductData() {
+            // Tutaj można dodać pobieranie danych z localStorage lub serwera
+            // Na razie używamy danych domyślnych
+            const products = [
+                { id: 1, name: 'Zjeżdżalnia XXL', price: 300, available: true },
+                { id: 2, name: 'Zamek do skakania', price: 250, available: true },
+                { id: 3, name: 'Kombajn atrakcji', price: 500, available: false }
+            ];
+            
+            products.forEach(product => {
+                document.getElementById(`product${product.id}Status`).checked = product.available;
+                document.getElementById(`product${product.id}Price`).value = product.price;
+                updateStatusText(product.id, product.available);
+            });
+            
+            // Dodaj nasłuchiwanie zmian
+            setupEventListeners();
+        }
+
+        // Aktualizacja tekstu statusu
+        function updateStatusText(productId, isAvailable) {
+            const statusText = document.getElementById(`product${productId}StatusText`);
+            statusText.textContent = isAvailable ? 'Dostępny' : 'Niedostępny';
+            statusText.style.color = isAvailable ? 'var(--admin-success)' : 'var(--admin-error)';
+        }
+
+        // Ustawienie nasłuchiwania zdarzeń
+        function setupEventListeners() {
+            // Zmiana statusu dostępności
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`product${i}Status`).addEventListener('change', function() {
+                    updateStatusText(i, this.checked);
+                });
+            }
+            
+            // Zapisywanie zmian
+            document.getElementById('saveChangesBtn').addEventListener('click', saveChanges);
+        }
+
+        // Zapisywanie zmian
+        function saveChanges() {
+            const products = [];
+            
+            for (let i = 1; i <= 3; i++) {
+                products.push({
+                    id: i,
+                    available: document.getElementById(`product${i}Status`).checked,
+                    price: document.getElementById(`product${i}Price`).value
+                });
+            }
+            
+            // Tutaj można dodać zapis do localStorage lub wysłanie na serwer
+            // Na razie tylko symulacja
+            console.log('Zapisano zmiany:', products);
+            alert('Zmiany zostały zapisane!');
+            
+            // Przekierowanie z powrotem na stronę główną
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
