@@ -1482,6 +1482,39 @@
 
     // Funkcja ładująca produkty z localStorage
 function loadProducts() {
+    try {
+        const savedProducts = localStorage.getItem('inflatableProducts');
+        
+        if (savedProducts) {
+            products = JSON.parse(savedProducts);
+        } else {
+            // Domyślne dane jeśli nie ma w localStorage
+            products = [
+                {
+                    id: 1,
+                    name: 'Zjeżdżalnia XXL',
+                    price: 300,
+                    available: true,
+                    img: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    details: [
+                        { icon: 'fas fa-ruler-combined', text: 'Wymiary: 8m x 5m x 5m' },
+                        { icon: 'fas fa-users', text: 'Dla dzieci 5-12 lat' },
+                        { icon: 'fas fa-truck', text: 'Transport w cenie' }
+                    ]
+                },
+                // ... (pozostałe domyślne produkty)
+            ];
+            localStorage.setItem('inflatableProducts', JSON.stringify(products));
+        }
+        
+        renderProducts();
+    } catch (error) {
+        console.error('Błąd ładowania produktów:', error);
+        // Przywróć domyślne produkty w przypadku błędu
+        products = [...]; // Wklej tu domyślne produkty
+        renderProducts();
+    }
+}
     // Najpierw sprawdź localStorage
     const savedProducts = localStorage.getItem('inflatableProducts');
     
