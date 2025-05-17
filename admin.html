@@ -645,11 +645,56 @@
         createBubbles();
 
         // Dane logowania
-        const ADMIN_CREDENTIALS = {
-            login: 'admin',
-            password: 'admin'
-        };
+// Zabezpieczone dane logowania (SHA-256 hashowane)
+const ADMIN_CREDENTIALS = {
+    login: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', // sha256('admin')
+    password: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' // sha256('admin')
+};
 
+// Funkcja hashująca SHA-256
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Obsługa formularza logowania
+document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('adminUsername').value;
+    const password = document.getElementById('adminPassword').value;
+    
+    const hashedUsername = await sha256(username);
+    const hashedPassword = await sha256(password);
+    
+    // Limit prób logowania
+    let loginAttempts = parseInt(localStorage.getItem('loginAttempts') || 0;
+    const lastAttempt = parseInt(localStorage.getItem('lastLoginAttempt') || 0;
+    const now = Date.now();
+    
+    // Blokada po 3 nieudanych próbach na 5 minut
+    if (loginAttempts >= 3 && (now - lastAttempt) < 300000) {
+        const remainingTime = Math.ceil((300000 - (now - lastAttempt)) / 60000);
+        showNotification(`Zbyt wiele prób logowania. Spróbuj ponownie za ${remainingTime} minut.`, true);
+        return;
+    }
+    
+    if (hashedUsername === ADMIN_CREDENTIALS.login && hashedPassword === ADMIN_CREDENTIALS.password) {
+        // Pomyślne logowanie
+        localStorage.setItem('loginAttempts', '0');
+        document.getElementById('adminLoginForm').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'block';
+        loadProductData();
+    } else {
+        // Nieudane logowanie
+        loginAttempts++;
+        localStorage.setItem('loginAttempts', loginAttempts.toString());
+        localStorage.setItem('lastLoginAttempt', Date.now().toString());
+        showNotification('Błędny login lub hasło! Spróbuj ponownie.', true);
+    }
+});
         // Funkcje powiadomień
         function showNotification(message, isError = false) {
             const notification = document.getElementById('notification');
@@ -750,27 +795,32 @@
 
         // Zapisywanie zmian
         function saveChanges() {
-            const products = [];
-            
-            for (let i = 1; i <= 3; i++) {
-                products.push({
-                    id: i,
-                    available: document.getElementById(`product${i}Status`).checked,
-                    price: document.getElementById(`product${i}Price`).value
-                });
-            }
-            
-            // Zapisz do localStorage
-            localStorage.setItem('inflatableProducts', JSON.stringify(products));
-            
-            // Pokaż powiadomienie
-            showNotification('Zmiany zostały zapisane! Dane zostaną zaktualizowane na stronie głównej.');
-            
-            // Opcjonalnie: przekieruj po zapisie
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        }
-    </script>
-</body>
-</html>
+    const products = [];
+    
+    for (let i = 1; i <= 3; i++) {
+        products.push({
+            id: i,
+            name: document.querySelector(`.product-card:nth-child(${i}) .product-title`).textContent.trim(),
+            available: document.getElementById(`product${i}Status`).checked,
+            price: parseInt(document.getElementById(`product${i}Price`).value),
+            img: `https://images.unsplash.com/photo-${i === 1 ? '1596484552834' : i === 2 ? '1608889825205' : '1608889825271'}-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80`,
+            details: [
+                { icon: 'fas fa-ruler-combined', text: i === 1 ? 'Wymiary: 8m x 5m x 5m' : i === 2 ? 'Wymiary: 5m x 5m x 3m' : 'Wymiary: 10m x 6m x 4m' },
+                { icon: 'fas fa-users', text: i === 1 ? 'Dla dzieci 5-12 lat' : i === 2 ? 'Dla dzieci 3-10 lat' : 'Dla dzieci w każdym wieku' },
+                { icon: 'fas fa-truck', text: 'Transport w cenie' }
+            ]
+        });
+    }
+    
+    // Zapisz do localStorage
+    localStorage.setItem('inflatableProducts', JSON.stringify(products));
+    
+    // Wymuś odświeżenie danych na innych kartach
+    const event = new StorageEvent('storage', {
+        key: 'inflatableProducts',
+        newValue: JSON.stringify(products)
+    });
+    window.dispatchEvent(event);
+    
+    showNotification('Zmiany zostały zapisane! Dane zostaną zaktualizowane na stronie głównej.');
+}
