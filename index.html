@@ -1194,24 +1194,30 @@
                 
 <div class="contact-form">
     <h3>Formularz kontaktowy</h3>
-    <form id="contactForm" action="https://formsubmit.io/send/dmuchance77@gmail.com" method="POST">
+    <form id="contactForm" action="https://formsubmit.co/el/muyami" method="POST">
+        <!-- Konfiguracja FormSubmit -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="Nowa wiadomość z dmuchance.pl">
-        <input type="text" name="_honey" style="display:none">
+        <input type="hidden" name="_next" value="https://dmuchance77.github.io/repo/potwierdzenie.html">
+        <input type="hidden" name="_autoresponse" value="Dziękujemy za wiadomość! Oto jej kopia:">
+        
+        <!-- Pola formularza -->
         <div class="form-group">
             <label for="name">Imię i nazwisko</label>
-            <input type="text" id="name" name="name" class="form-control" required>
+            <input type="text" id="name" name="Imię i nazwisko" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" class="form-control" required>
+            <input type="email" id="email" name="Email" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="phone">Telefon</label>
-            <input type="tel" id="phone" name="phone" class="form-control" required>
+            <input type="tel" id="phone" name="Telefon" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="message">Wiadomość</label>
-            <textarea id="message" name="message" class="form-control" required></textarea>
+            <textarea id="message" name="Wiadomość" class="form-control" required></textarea>
         </div>
         <button type="submit" class="submit-btn">Wyślij wiadomość <i class="fas fa-paper-plane"></i></button>
     </form>
@@ -1254,35 +1260,41 @@
                 </div>
             </div>
             
-   <form id="orderForm" action="https://formsubmit.io/send/dmuchance77@gmail.com method="POST">
+ <form id="orderForm" action="https://formsubmit.co/el/muyami" method="POST">
+    <!-- Konfiguracja FormSubmit -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_subject" value="Nowe zamówienie - Dmuchance.pl">
-    <input type="text" name="_honey" style="display:none">
-    <input type="hidden" name="product" id="formProductName">
-    <input type="hidden" name="price" id="formProductPrice">
+    <input type="hidden" name="_next" value="https://dmuchance77.github.io/repo/potwierdzenie.html">
+    <input type="hidden" name="_autoresponse" value="Dziękujemy za zamówienie! Oto jego szczegóły:">
+    
+    <!-- Pola formularza -->
+    <input type="hidden" id="formProductName" name="Produkt">
+    <input type="hidden" id="formProductPrice" name="Cena">
     
     <div class="form-group">
         <label for="orderName">Imię i nazwisko</label>
-        <input type="text" id="orderName" name="name" class="form-control" required>
+        <input type="text" id="orderName" name="Imię i nazwisko" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="orderEmail">Email</label>
-        <input type="email" id="orderEmail" name="email" class="form-control" required>
+        <input type="email" id="orderEmail" name="Email" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="orderPhone">Telefon</label>
-        <input type="tel" id="orderPhone" name="phone" class="form-control" required>
+        <input type="tel" id="orderPhone" name="Telefon" class="form-control" required>
     </div>
-    <div class="form-group">
+    <div class="form-form-group">
         <label for="orderDate">Data wynajmu</label>
-        <input type="date" id="orderDate" name="date" class="form-control" required>
+        <input type="date" id="orderDate" name="Data wynajmu" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="orderAddress">Miejsce dostawy (adres)</label>
-        <input type="text" id="orderAddress" name="address" class="form-control" required>
+        <input type="text" id="orderAddress" name="Miejsce dostawy" class="form-control" required>
     </div>
     <div class="form-group">
         <label for="orderMessage">Dodatkowe uwagi</label>
-        <textarea id="orderMessage" name="message" class="form-control"></textarea>
+        <textarea id="orderMessage" name="Uwagi" class="form-control"></textarea>
     </div>
     <button type="submit" class="submit-btn">Potwierdź zamówienie <i class="fas fa-check"></i></button>
 </form>
