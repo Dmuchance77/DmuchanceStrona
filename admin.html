@@ -374,7 +374,7 @@ Admin.html
                 <h2 style="margin-bottom: 2rem; font-family: 'Montserrat', sans-serif; color: var(--admin-dark);">Zarządzanie produktami</h2>
 
                 <div class="product-card">
-                    <h3 class="product-title">Zjeżdżalnia XXL</h3>
+                    <h3 class="product-title">Zjeżdżalnia Mistrzów</h3>
                     <div class="product-controls">
                         <div class="availability-toggle">
                             <span>Dostępność:</span>
@@ -387,14 +387,14 @@ Admin.html
 
                         <div class="price-control">
                             <span class="price-label">Cena:</span>
-                            <input type="number" id="product1Price" class="price-input" value="300" min="0">
+                            <input type="number" id="product1Price" class="price-input" value="600" min="0">
                             <span>zł/dzień</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-card">
-                    <h3 class="product-title">Zamek do skakania</h3>
+                    <h3 class="product-title">Zamek Radości</h3>
                     <div class="product-controls">
                         <div class="availability-toggle">
                             <span>Dostępność:</span>
@@ -407,14 +407,14 @@ Admin.html
 
                         <div class="price-control">
                             <span class="price-label">Cena:</span>
-                            <input type="number" id="product2Price" class="price-input" value="250" min="0">
+                            <input type="number" id="product2Price" class="price-input" value="600" min="0">
                             <span>zł/dzień</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-card">
-                    <h3 class="product-title">Kombajn atrakcji</h3>
+                    <h3 class="product-title">Małpi Raj</h3>
                     <div class="product-controls">
                         <div class="availability-toggle">
                             <span>Dostępność:</span>
@@ -422,12 +422,12 @@ Admin.html
                                 <input type="checkbox" id="product3Status">
                                 <span class="slider"></span>
                             </label>
-                            <span id="product3StatusText">Niedostępny</span>
+                            <span id="product3StatusText">Dostępny</span>
                         </div>
 
                         <div class="price-control">
                             <span class="price-label">Cena:</span>
-                            <input type="number" id="product3Price" class="price-input" value="500" min="0">
+                            <input type="number" id="product3Price" class="price-input" value="600" min="0">
                             <span>zł/dzień</span>
                         </div>
                     </div>
@@ -470,9 +470,9 @@ Admin.html
             // Pobierz dane z localStorage lub użyj domyślnych
             const savedProducts = localStorage.getItem('dmuchanceProducts');
             let products = [
-                { id: 1, name: 'Zjeżdżalnia XXL', price: 300, available: true },
-                { id: 2, name: 'Zamek do skakania', price: 250, available: true },
-                { id: 3, name: 'Kombajn atrakcji', price: 500, available: false }
+                { id: 1, name: 'Zjeżdżalnia Mistrzów', price: 600, available: true },
+                { id: 2, name: 'Zamek Radości', price: 600, available: true },
+                { id: 3, name: 'Małpi Raj', price: 600, available: true }
             ];
             
             if (savedProducts) {
