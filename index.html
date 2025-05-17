@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wypożyczalnia dmuchańców | Super Atrakcje na Eventy</title>
+    <title>Wypożyczalnia dmuchańców | Najlepsze atrakcje na eventy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -15,6 +15,8 @@
             --accent: #FFE66D;
             --dark: #292F36;
             --light: #F7FFF7;
+            --success: #6BCB77;
+            --error: #FF6B6B;
             --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
@@ -34,9 +36,14 @@
         }
 
         /* Animacje */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-10px); }
         }
 
         @keyframes pulse {
@@ -57,44 +64,227 @@
             background-size: 200% 200%;
             animation: gradientBG 8s ease infinite;
             color: white;
-            padding: 8rem 0 10rem;
+            padding: 6rem 0 8rem;
             text-align: center;
             position: relative;
+            overflow: hidden;
             clip-path: ellipse(120% 100% at 50% 0%);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1570303345338-e1f0ed0b8a5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: -1;
         }
 
         .header-content {
             max-width: 800px;
             margin: 0 auto;
+            padding: 0 2rem;
             animation: fadeIn 1s ease-out;
         }
 
         h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .price-tag {
+        .header-content p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
             display: inline-block;
             background-color: var(--accent);
             color: var(--dark);
-            padding: 10px 25px;
+            padding: 18px 45px;
             border-radius: 50px;
+            text-decoration: none;
             font-weight: 700;
-            font-size: 1.8rem;
-            margin: 2rem 0;
-            animation: pulse 2s infinite;
+            font-size: 1.2rem;
+            transition: var(--transition);
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite 1s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Sekcja oferty */
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            animation: none;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .cta-button:hover::after {
+            opacity: 1;
+        }
+
+        /* Nawigacja */
+        nav {
+            background-color: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo:hover i {
+            transform: rotate(15deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Główna zawartość */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 7rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .section-title:hover h2::after {
+            width: 120px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Oferta */
         .offer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
-            margin-top: 3rem;
         }
 
         .offer-card {
@@ -103,12 +293,36 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
             transform-style: preserve-3d;
         }
 
         .offer-card:hover {
             transform: translateY(-15px) rotateX(5deg);
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .availability {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .available {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .unavailable {
+            background-color: var(--error);
+            color: white;
         }
 
         .offer-img-container {
@@ -130,13 +344,14 @@
         }
 
         .offer-content {
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
         .offer-content h3 {
             color: var(--primary);
-            font-size: 1.8rem;
             margin-bottom: 1rem;
+            font-size: 1.6rem;
+            font-family: 'Montserrat', sans-serif;
             transition: var(--transition);
         }
 
@@ -144,94 +359,339 @@
             color: var(--secondary);
         }
 
-        .highlight {
-            color: var(--primary);
+        .price {
             font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.8rem;
+            margin: 1.5rem 0;
+            display: block;
+            transition: var(--transition);
         }
 
-        /* Sekcja kontaktowa */
-        .contact-section {
-            background: white;
-            padding: 5rem 0;
-            text-align: center;
+        .offer-card:hover .price {
+            transform: scale(1.05);
         }
 
-        .contact-container {
+        .offer-details {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .offer-details p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .offer-details i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .offer-card:hover .offer-details i {
+            transform: rotate(15deg);
+            color: var(--secondary);
+        }
+
+        /* Galeria */
+        .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
-        .contact-card {
-            background: #f9f9f9;
-            border-radius: 15px;
-            padding: 2rem;
-            transition: var(--transition);
+        .gallery-item {
+            height: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
             box-shadow: var(--shadow);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
             transition: var(--transition);
         }
 
-        .contact-card:hover .contact-icon {
-            transform: rotate(15deg) scale(1.2);
-            color: var(--secondary);
+        .gallery-item:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        /* Kontakt - ZMIENIONE - tylko dane kontaktowe */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+            align-items: center;
         }
 
         .contact-info {
-            font-size: 1.2rem;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
-        .contact-info a {
+        .contact-info:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: rotate(15deg) scale(1.1);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .contact-text h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .contact-text a {
             color: var(--secondary);
             text-decoration: none;
             transition: var(--transition);
-            display: block;
-            margin-top: 0.5rem;
+            font-size: 1.1rem;
         }
 
-        .contact-info a:hover {
+        .contact-text a:hover {
             color: var(--primary);
             text-decoration: underline;
         }
 
-        /* Sekcja CTA */
-        .cta-section {
+        /* Stopka */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 0 3rem;
             text-align: center;
-            padding: 5rem 0;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
-                        url('https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            background-attachment: fixed;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 5rem;
+            position: relative;
         }
 
-        .cta-text {
-            font-size: 1.8rem;
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 2rem;
-            font-weight: 600;
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-logo i {
+            font-size: 2.3rem;
+            margin-right: 10px;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .social-link {
+            width: 55px;
+            height: 55px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+            font-size: 1.4rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 3rem;
         }
 
         /* Responsywność */
+        @media (max-width: 1200px) {
+            .nav-container {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.4rem;
+            }
+            
+            .offer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem 1rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
             h1 {
                 font-size: 2.5rem;
             }
             
-            .price-tag {
-                font-size: 1.5rem;
+            .header-content p {
+                font-size: 1.1rem;
+            }
+            
+            section {
+                padding: 5rem 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
             }
             
             .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+            
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery {
                 grid-template-columns: 1fr;
             }
         }
@@ -241,150 +701,214 @@
     <!-- Nagłówek -->
     <header>
         <div class="header-content">
-            <h1><i class="fas fa-cloud"></i> Wypożyczalnia Dmuchańców</h1>
-            <p>Najlepsze atrakcje dla Twojego eventu!</p>
-            <div class="price-tag">Już od 600 zł/dzień</div>
+            <h1><i class="fas fa-cloud"></i> Wypożyczalnia dmuchańców</h1>
+            <p>Najlepsze atrakcje dla dzieci na imprezy plenerowe i eventy!</p>
+            <a href="#offer" class="cta-button">Zobacz ofertę <i class="fas fa-arrow-down"></i></a>
         </div>
     </header>
-
+    
+    <!-- Nawigacja -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo"><i class="fas fa-cloud"></i> DMUCHANCE</a>
+            <div class="nav-links">
+                <a href="#offer" class="active">Oferta</a>
+                <a href="#gallery">Galeria</a>
+                <a href="#contact">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+    
     <!-- Główna zawartość -->
     <main class="container">
-        <section>
+        <!-- Sekcja Oferta -->
+        <section id="offer">
+            <div class="section-title">
+                <h2>Nasza Oferta</h2>
+                <p>Wybierz idealną atrakcję dla swojej imprezy</p>
+            </div>
             <div class="offer-grid">
                 <!-- Produkt 1 -->
-                <div class="offer-card">
+                <div class="offer-card" data-product="1">
+                    <div class="availability available">Dostępny</div>
                     <div class="offer-img-container">
                         <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zjeżdżalnia XXL" class="offer-img">
                     </div>
                     <div class="offer-content">
                         <h3>Zjeżdżalnia XXL</h3>
-                        <p><span class="highlight">600 zł/dzień</span> (transport w cenie)</p>
-                        <p>Wymiary: 8m x 5m x 5m</p>
-                        <p>Dla dzieci 5-12 lat</p>
+                        <span class="price">300 zł/dzień</span>
+                        <div class="offer-details">
+                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 8m x 5m x 5m</p>
+                            <p><i class="fas fa-users"></i> Dla dzieci 5-12 lat</p>
+                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Produkt 2 -->
-                <div class="offer-card">
+                <div class="offer-card" data-product="2">
+                    <div class="availability available">Dostępny</div>
                     <div class="offer-img-container">
                         <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zamek do skakania" class="offer-img">
                     </div>
                     <div class="offer-content">
                         <h3>Zamek do skakania</h3>
-                        <p><span class="highlight">500 zł/dzień</span> (transport w cenie)</p>
-                        <p>Wymiary: 5m x 5m x 3m</p>
-                        <p>Dla dzieci 3-10 lat</p>
+                        <span class="price">250 zł/dzień</span>
+                        <div class="offer-details">
+                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 5m x 5m x 3m</p>
+                            <p><i class="fas fa-users"></i> Dla dzieci 3-10 lat</p>
+                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Produkt 3 -->
-                <div class="offer-card">
+                <div class="offer-card" data-product="3">
+                    <div class="availability unavailable">Niedostępny</div>
                     <div class="offer-img-container">
                         <img src="https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kombajn atrakcji" class="offer-img">
                     </div>
                     <div class="offer-content">
                         <h3>Kombajn atrakcji</h3>
-                        <p><span class="highlight">800 zł/dzień</span> (transport w cenie)</p>
-                        <p>Wymiary: 10m x 6m x 4m</p>
-                        <p>Dla dzieci w każdym wieku</p>
+                        <span class="price">500 zł/dzień</span>
+                        <div class="offer-details">
+                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 10m x 6m x 4m</p>
+                            <p><i class="fas fa-users"></i> Dla dzieci w każdym wieku</p>
+                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Sekcja kontaktowa -->
-        <section class="contact-section">
-            <h2>Skontaktuj się z nami</h2>
-            <p>Masz pytania? Chcesz zarezerwować termin? Jesteśmy do Twojej dyspozycji!</p>
-            
+        
+        <!-- Sekcja Galeria -->
+        <section id="gallery">
+            <div class="section-title">
+                <h2>Galeria</h2>
+                <p>Zobacz nasze dmuchańce w akcji</p>
+            </div>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zjeżdżalnia" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zamek" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kombajn" class="gallery-img">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1608889825103-ebeeb6d97423?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Event" class="gallery-img">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sekcja Kontakt - ZMIENIONE: tylko dane kontaktowe -->
+        <section id="contact">
+            <div class="section-title">
+                <h2>Kontakt</h2>
+                <p>Skontaktuj się z nami i zarezerwuj termin</p>
+            </div>
             <div class="contact-container">
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone-alt"></i>
+                <div class="contact-info">
+                    <h3>Dane kontaktowe</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:+48123456789">+48 123 456 789</a></p>
+                        </div>
                     </div>
-                    <h3>Telefon</h3>
-                    <div class="contact-info">
-                        <a href="tel:+48123456789">+48 123 456 789</a>
-                        <p>Godziny: 8:00 - 20:00</p>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p><a href="mailto:kontakt@dmuchance.pl">kontakt@dmuchance.pl</a></p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Adres</h4>
+                            <p>ul. Wesoła 123, 00-000 Warszawa</p>
+                        </div>
                     </div>
-                    <h3>Email</h3>
-                    <div class="contact-info">
-                        <a href="mailto:kontakt@dmuchance.pl">kontakt@dmuchance.pl</a>
-                        <p>Odpowiadamy w ciągu 24h</p>
-                    </div>
-                </div>
-                
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Adres</h3>
-                    <div class="contact-info">
-                        <p>ul. Wesoła 123</p>
-                        <p>00-000 Warszawa</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sekcja CTA -->
-        <section class="cta-section">
-            <div class="container">
-                <h2>Zarezerwuj już dziś!</h2>
-                <p class="cta-text">Mamy ograniczoną liczbę dmuchańców - nie zwlekaj!</p>
-                <div style="margin-top: 2rem;">
-                    <a href="tel:+48123456789" class="contact-info" style="font-size: 1.5rem; display: inline-block;">
-                        <i class="fas fa-phone-alt" style="margin-right: 10px;"></i> Zadzwoń teraz
-                    </a>
                 </div>
             </div>
         </section>
     </main>
+    
+    <!-- Stopka -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><i class="fas fa-cloud"></i> DMUCHANCE.PL</div>
+            <p class="footer-text">Profesjonalna wypożyczalnia dmuchańców na eventy i imprezy plenerowe</p>
+            <div class="footer-links">
+                <a href="#offer">Oferta</a>
+                <a href="#gallery">Galeria</a>
+                <a href="#contact">Kontakt</a>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">© 2024 Wypożyczalnia Dmuchance.pl. Wszelkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
 
     <script>
-        // Animacje przy scrollu
-        document.addEventListener('DOMContentLoaded', function() {
-            const animateElements = document.querySelectorAll('.offer-card, .contact-card');
+        // Animacje scrolla dla nawigacji
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
             
-            const animateOnScroll = () => {
-                animateElements.forEach((element, index) => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if(elementPosition < screenPosition) {
-                        setTimeout(() => {
-                            element.style.opacity = '1';
-                            element.style.transform = 'translateY(0)';
-                        }, 150 * index);
-                    }
-                });
-            };
+            // Aktywne sekcje w nawigacji
+            const sections = document.querySelectorAll('section');
+            let current = '';
             
-            // Ustaw początkowe style dla animacji
-            animateElements.forEach(element => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(30px)';
-                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 300) {
+                    current = section.getAttribute('id');
+                }
             });
             
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // Wywołaj na starcie
-            
-            // Animacja ikon kontaktowych
-            const contactIcons = document.querySelectorAll('.contact-icon');
-            contactIcons.forEach(icon => {
-                icon.addEventListener('mouseenter', () => {
-                    icon.style.transform = 'rotate(15deg) scale(1.2)';
-                });
-                icon.addEventListener('mouseleave', () => {
-                    icon.style.transform = '';
-                });
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Płynne przewijanie do sekcji
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
     </script>
