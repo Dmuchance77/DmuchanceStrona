@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wypożyczalnia dmuchańców | Najlepsze atrakcje na eventy</title>
+    <title>Wypożyczalnia dmuchańców | Super Atrakcje na Eventy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -15,8 +15,6 @@
             --accent: #FFE66D;
             --dark: #292F36;
             --light: #F7FFF7;
-            --success: #6BCB77;
-            --error: #FF6B6B;
             --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
@@ -36,14 +34,9 @@
         }
 
         /* Animacje */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-20px); }
         }
 
         @keyframes pulse {
@@ -64,227 +57,44 @@
             background-size: 200% 200%;
             animation: gradientBG 8s ease infinite;
             color: white;
-            padding: 6rem 0 8rem;
+            padding: 8rem 0 10rem;
             text-align: center;
             position: relative;
-            overflow: hidden;
             clip-path: ellipse(120% 100% at 50% 0%);
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1570303345338-e1f0ed0b8a5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: 0.15;
-            z-index: -1;
         }
 
         .header-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 2rem;
             animation: fadeIn 1s ease-out;
         }
 
         h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-            animation: fadeIn 0.8s ease-out;
         }
 
-        .header-content p {
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            animation: fadeIn 1s ease-out 0.3s both;
-        }
-
-        .cta-button {
+        .price-tag {
             display: inline-block;
             background-color: var(--accent);
             color: var(--dark);
-            padding: 18px 45px;
+            padding: 10px 25px;
             border-radius: 50px;
-            text-decoration: none;
             font-weight: 700;
-            font-size: 1.2rem;
-            transition: var(--transition);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: pulse 2s infinite 1s;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            animation: none;
-        }
-
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .cta-button:hover::after {
-            opacity: 1;
-        }
-
-        /* Nawigacja */
-        nav {
-            background-color: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        nav.scrolled {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-        }
-
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
             font-size: 1.8rem;
-            transition: var(--transition);
+            margin: 2rem 0;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo:hover i {
-            transform: rotate(15deg);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            position: relative;
-            padding: 5px 0;
-            font-size: 1.1rem;
-        }
-
-        .nav-links a.active {
-            color: var(--primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-            border-radius: 3px;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        /* Główna zawartość */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 7rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 5rem;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border-radius: 5px;
-            transition: var(--transition);
-        }
-
-        .section-title:hover h2::after {
-            width: 120px;
-            background: linear-gradient(to right, var(--secondary), var(--primary));
-        }
-
-        .section-title p {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Oferta */
+        /* Sekcja oferty */
         .offer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
+            margin-top: 3rem;
         }
 
         .offer-card {
@@ -293,36 +103,12 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            position: relative;
             transform-style: preserve-3d;
         }
 
         .offer-card:hover {
             transform: translateY(-15px) rotateX(5deg);
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-
-        .availability {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            z-index: 2;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .available {
-            background-color: var(--success);
-            color: white;
-        }
-
-        .unavailable {
-            background-color: var(--error);
-            color: white;
         }
 
         .offer-img-container {
@@ -344,14 +130,13 @@
         }
 
         .offer-content {
-            padding: 2.5rem;
+            padding: 2rem;
         }
 
         .offer-content h3 {
             color: var(--primary);
+            font-size: 1.8rem;
             margin-bottom: 1rem;
-            font-size: 1.6rem;
-            font-family: 'Montserrat', sans-serif;
             transition: var(--transition);
         }
 
@@ -359,1188 +144,149 @@
             color: var(--secondary);
         }
 
-        .price {
+        .highlight {
+            color: var(--primary);
             font-weight: 700;
-            color: var(--secondary);
+        }
+
+        /* Call-to-action */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            background-attachment: fixed;
+        }
+
+        .cta-text {
             font-size: 1.8rem;
-            margin: 1.5rem 0;
-            display: block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .phone-number {
+            display: inline-block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            margin: 1rem 0;
             transition: var(--transition);
         }
 
-        .offer-card:hover .price {
+        .phone-number:hover {
             transform: scale(1.05);
-        }
-
-        .offer-details {
-            margin-bottom: 2rem;
-            color: #666;
-        }
-
-        .offer-details p {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .offer-details i {
-            color: var(--primary);
-            font-size: 1.1rem;
-            transition: var(--transition);
-        }
-
-        .offer-card:hover .offer-details i {
-            transform: rotate(15deg);
             color: var(--secondary);
-        }
-
-        .order-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .order-btn i {
-            transition: var(--transition);
-        }
-
-        .order-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            background: linear-gradient(to right, var(--secondary), var(--primary));
-        }
-
-        .order-btn:hover i {
-            transform: translateX(5px);
-        }
-
-        .order-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .order-btn:hover::after {
-            opacity: 1;
-        }
-
-        /* Galeria */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .gallery-item {
-            height: 300px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.1);
-        }
-
-        /* Kontakt */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .contact-info {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .contact-info:hover {
-            transform: translateY(-10px);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            transition: var(--transition);
-        }
-
-        .contact-item:hover {
-            transform: translateX(10px);
-        }
-
-        .contact-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1.5rem;
-            font-size: 1.8rem;
-            flex-shrink: 0;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .contact-item:hover .contact-icon {
-            transform: rotate(15deg) scale(1.1);
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-        }
-
-        .contact-text h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .contact-text a {
-            color: var(--secondary);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.1rem;
-        }
-
-        .contact-text a:hover {
-            color: var(--primary);
-            text-decoration: underline;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .contact-form:hover {
-            transform: translateY(-10px);
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1.1rem;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
-            font-size: 1rem;
-            background: #f9f9f9;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
-            background: white;
-        }
-
-        textarea.form-control {
-            min-height: 180px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            font-size: 1.1rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            background: linear-gradient(to right, var(--secondary), var(--primary));
-        }
-
-        .submit-btn i {
-            transition: var(--transition);
-        }
-
-        .submit-btn:hover i {
-            transform: translateX(5px);
-        }
-
-        /* Stopka */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 6rem 0 3rem;
-            text-align: center;
-            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
-            margin-top: 5rem;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: 0.05;
-            z-index: 0;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .footer-logo i {
-            font-size: 2.3rem;
-            margin-right: 10px;
-        }
-
-        .footer-text {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            opacity: 0.9;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2.5rem;
-            margin: 2rem 0 3rem;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.1rem;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .footer-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover::after {
-            width: 100%;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .social-link {
-            width: 55px;
-            height: 55px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: var(--transition);
-            font-size: 1.4rem;
-            backdrop-filter: blur(5px);
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
-            margin-top: 3rem;
-        }
-
-        .admin-link {
-            display: inline-block;
-            margin-top: 2rem;
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .admin-link:hover {
-            color: var(--accent);
-        }
-
-        /* Modal zamówienia */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 600px;
-            padding: 4rem 3rem;
-            position: relative;
-            transform: translateY(50px);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #aaa;
-            transition: var(--transition);
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .close-modal:hover {
-            color: var(--primary);
-            background: #f9f9f9;
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            color: var(--primary);
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-        }
-
-        .modal-product {
-            background: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .modal-product-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
-            object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .modal-product-info h4 {
-            font-size: 1.4rem;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .modal-product-info .price {
-            font-size: 1.5rem;
-            color: var(--secondary);
-            font-weight: 700;
-        }
-
-        .back-to-offer {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            text-decoration: none;
-            margin-top: 2rem;
-            transition: var(--transition);
-            font-weight: 600;
-        }
-
-        .back-to-offer i {
-            transition: var(--transition);
-        }
-
-        .back-to-offer:hover {
-            color: var(--secondary);
-        }
-
-        .back-to-offer:hover i {
-            transform: translateX(-5px);
-        }
-
-        /* Powiadomienie */
-        .notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: var(--success);
-            color: white;
-            padding: 18px 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 3000;
-            transform: translateX(200%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            max-width: 400px;
-            backdrop-filter: blur(5px);
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.error {
-            background: var(--error);
-        }
-
-        .notification i {
-            margin-right: 15px;
-            font-size: 1.8rem;
-        }
-
-        .notification-content {
-            flex: 1;
-        }
-
-        .notification h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .notification p {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .close-notification {
-            margin-left: 15px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-
-        .close-notification:hover {
-            opacity: 1;
-            transform: scale(1.2);
         }
 
         /* Responsywność */
-        @media (max-width: 1200px) {
-            .nav-container {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 3rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.4rem;
-            }
-            
-            .offer-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
-        }
-
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1.5rem;
-                padding: 1.5rem 1rem;
-            }
-            
-            .nav-links {
-                gap: 1.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
             h1 {
                 font-size: 2.5rem;
             }
             
-            .header-content p {
-                font-size: 1.1rem;
-            }
-            
-            section {
-                padding: 5rem 0;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                padding: 3rem 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .cta-button {
-                padding: 15px 35px;
-                font-size: 1rem;
-            }
-            
-            .offer-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            
-            .modal-content {
-                padding: 3rem 1.5rem;
-                width: 95%;
-            }
-            
-            .modal-product {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .notification {
-                top: 20px;
-                right: 20px;
-                left: 20px;
-                max-width: none;
-                transform: translateY(-150%);
-            }
-            
-            .notification.show {
-                transform: translateY(0);
+            .price-tag {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Nagłówek -->
+    <!-- Nagłózek -->
     <header>
         <div class="header-content">
-            <h1><i class="fas fa-cloud"></i> Wypożyczalnia dmuchańców</h1>
-            <p>Najlepsze atrakcje dla dzieci na imprezy plenerowe i eventy!</p>
-            <a href="#offer" class="cta-button">Zobacz ofertę <i class="fas fa-arrow-down"></i></a>
+            <h1><i class="fas fa-cloud"></i> Wypożyczalnia Dmuchańców</h1>
+            <p>Najlepsze atrakcje dla Twojego eventu!</p>
+            <div class="price-tag">Już od 600 zł/dzień</div>
         </div>
     </header>
-    
-    <!-- Nawigacja -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo"><i class="fas fa-cloud"></i> DMUCHANCE</a>
-            <div class="nav-links">
-                <a href="#offer" class="active">Oferta</a>
-                <a href="#gallery">Galeria</a>
-                <a href="#contact">Kontakt</a>
-            </div>
-        </div>
-    </nav>
-    
+
     <!-- Główna zawartość -->
     <main class="container">
-        <!-- Sekcja Oferta -->
-        <section id="offer">
-            <div class="section-title">
-                <h2>Nasza Oferta</h2>
-                <p>Wybierz idealną atrakcję dla swojej imprezy</p>
-            </div>
+        <section>
             <div class="offer-grid">
                 <!-- Produkt 1 -->
-                <div class="offer-card" data-product="1">
-                    <div class="availability available">Dostępny</div>
+                <div class="offer-card">
                     <div class="offer-img-container">
-                        <img src="https://i.imgur.com/cgYJoWj.jpeg" alt="Zjeżdżalnia Mistrzów" class="offer-img">
+                        <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zjeżdżalnia XXL" class="offer-img">
                     </div>
                     <div class="offer-content">
-                        <h3>Zjeżdżalnia Mistrzów</h3>
-                        <span class="price">600 zł/dzień</span>
-                        <div class="offer-details">
-                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 8m x 5m x 5m</p>
-                            <p><i class="fas fa-users"></i> Dla dzieci 5-12 lat</p>
-                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
-                        </div>
-                        <button class="order-btn" onclick="openModal(1)">Zamów teraz <i class="fas fa-arrow-right"></i></button>
+                        <h3>Zjeżdżalnia XXL</h3>
+                        <p><span class="highlight">600 zł/dzień</span> (transport w cenie)</p>
+                        <p>Wymiary: 8m x 5m x 5m</p>
+                        <p>Dla dzieci 5-12 lat</p>
                     </div>
                 </div>
                 
                 <!-- Produkt 2 -->
-                <div class="offer-card" data-product="2">
-                    <div class="availability available">Dostępny</div>
+                <div class="offer-card">
                     <div class="offer-img-container">
-                        <img src="https://i.imgur.com/lr525mm.jpeg" alt="Zamek Radości" class="offer-img">
+                        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zamek do skakania" class="offer-img">
                     </div>
                     <div class="offer-content">
-                        <h3>Zamek Radości</h3>
-                        <span class="price">600 zł/dzień</span>
-                        <div class="offer-details">
-                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 5m x 5m x 3m</p>
-                            <p><i class="fas fa-users"></i> Dla dzieci 3-10 lat</p>
-                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
-                        </div>
-                        <button class="order-btn" onclick="openModal(2)">Zamów teraz <i class="fas fa-arrow-right"></i></button>
+                        <h3>Zamek do skakania</h3>
+                        <p><span class="highlight">500 zł/dzień</span> (transport w cenie)</p>
+                        <p>Wymiary: 5m x 5m x 3m</p>
+                        <p>Dla dzieci 3-10 lat</p>
                     </div>
                 </div>
                 
                 <!-- Produkt 3 -->
-                <div class="offer-card" data-product="3">
-                    <div class="availability available">Dostępny</div>
+                <div class="offer-card">
                     <div class="offer-img-container">
-                        <img src="https://i.imgur.com/MY9DclT.jpeg" alt="Małpi Raj" class="offer-img">
+                        <img src="https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kombajn atrakcji" class="offer-img">
                     </div>
                     <div class="offer-content">
-                        <h3>Małpi Raj</h3>
-                        <span class="price">600 zł/dzień</span>
-                        <div class="offer-details">
-                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 10m x 6m x 4m</p>
-                            <p><i class="fas fa-users"></i> Dla dzieci w każdym wieku</p>
-                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
-                        </div>
-                        <button class="order-btn" onclick="openModal(3)">Zamów teraz <i class="fas fa-arrow-right"></i></button>
+                        <h3>Kombajn atrakcji</h3>
+                        <p><span class="highlight">800 zł/dzień</span> (transport w cenie)</p>
+                        <p>Wymiary: 10m x 6m x 4m</p>
+                        <p>Dla dzieci w każdym wieku</p>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Sekcja Galeria -->
-        <section id="gallery">
-            <div class="section-title">
-                <h2>Galeria</h2>
-                <p>Zobacz nasze dmuchańce w akcji</p>
-            </div>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/cgYJoWj.jpeg" alt="Zjeżdżalnia Mistrzów" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/lr525mm.jpeg" alt="Zamek Radości" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.imgur.com/MY9DclT.jpeg" alt="Małpi Raj" class="gallery-img">
-                </div>
-            </div>
-        </section>
-        
-        <!-- Sekcja Kontakt -->
-        <section id="contact">
-            <div class="section-title">
-                <h2>Kontakt</h2>
-                <p>Skontaktuj się z nami i zarezerwuj termin</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Dane kontaktowe</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Telefon</h4>
-                            <p><a href="tel:+4897162976">+48 697 162 976</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Email</h4>
-                            <p><a href="mailto:dmuchance77@gmail.com">dmuchance77@gmail.com</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Adres</h4>
-                            <p>ul. Kakawa-Kolonia 20</p>
-                        </div>
-                    </div>
-                </div>
-                
-<div class="contact-form">
-    <h3>Formularz kontaktowy</h3>
-    <form id="contactForm" action="https://formsubmit.co/el/muyami" method="POST">
-        <!-- Konfiguracja FormSubmit -->
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_subject" value="Nowa wiadomość z dmuchance.pl">
-        <input type="hidden" name="_next" value="https://dmuchance77.github.io/repo/potwierdzenie.html">
-        <input type="hidden" name="_autoresponse" value="Dziękujemy za wiadomość! Oto jej kopia:">
-        
-        <!-- Pola formularza -->
-        <div class="form-group">
-            <label for="name">Imię i nazwisko</label>
-            <input type="text" id="name" name="Imię i nazwisko" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="Email" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="phone">Telefon</label>
-            <input type="tel" id="phone" name="Telefon" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Wiadomość</label>
-            <textarea id="message" name="Wiadomość" class="form-control" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Wyślij wiadomość <i class="fas fa-paper-plane"></i></button>
-    </form>
-</div>
+
+        <!-- Sekcja CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Zainteresowany?</h2>
+                <p class="cta-text">Zadzwoń i zarezerwuj termin już dziś!</p>
+                <a href="tel:+48123456789" class="phone-number">
+                    <i class="fas fa-phone"></i> +48 123 456 789
+                </a>
+                <p>Dostępność ograniczona - rezerwuj z wyprzedzeniem!</p>
             </div>
         </section>
     </main>
-    
-    <!-- Stopka -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo"><i class="fas fa-cloud"></i> DMUCHANCE.PL </div>
-            <p class="footer-text">Profesjonalna wypożyczalnia dmuchańców na eventy i imprezy plenerowe</p>
-            <div class="footer-links">
-                <a href="#offer">Oferta</a>
-                <a href="#gallery">Galeria</a>
-                <a href="#contact">Kontakt</a>
-                <a href="admin.html" class="admin-link">Panel Administracyjny</a>
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="copyright">© 2025 Wypożyczalnia dmuchańców Wszelkie prawa zastrzeżone.</p>
-        </div>
-    </footer>
-    
-    <!-- Modal zamówienia -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">Złóż zamówienie</h3>
-            
-            <div class="modal-product">
-                <img src="" alt="" class="modal-product-img" id="modalProductImg">
-                <div class="modal-product-info">
-                    <h4 id="modalProductName">Zjeżdżalnia Mistrzów</h4>
-                    <div class="price" id="modalProductPrice">600 zł/dzień</div>
-                </div>
-            </div>
-            
- <form id="orderForm" action="https://formsubmit.co/el/muyami" method="POST">
-    <!-- Konfiguracja FormSubmit -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_subject" value="Nowe zamówienie - Dmuchance.pl">
-    <input type="hidden" name="_next" value="https://dmuchance77.github.io/repo/potwierdzenie.html">
-    <input type="hidden" name="_autoresponse" value="Dziękujemy za zamówienie! Oto jego szczegóły:">
-    
-    <!-- Pola formularza -->
-    <input type="hidden" id="formProductName" name="Produkt">
-    <input type="hidden" id="formProductPrice" name="Cena">
-    
-    <div class="form-group">
-        <label for="orderName">Imię i nazwisko</label>
-        <input type="text" id="orderName" name="Imię i nazwisko" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="orderEmail">Email</label>
-        <input type="email" id="orderEmail" name="Email" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="orderPhone">Telefon</label>
-        <input type="tel" id="orderPhone" name="Telefon" class="form-control" required>
-    </div>
-    <div class="form-form-group">
-        <label for="orderDate">Data wynajmu</label>
-        <input type="date" id="orderDate" name="Data wynajmu" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="orderAddress">Miejsce dostawy (adres)</label>
-        <input type="text" id="orderAddress" name="Miejsce dostawy" class="form-control" required>
-    </div>
-    <div class="form-group">
-        <label for="orderMessage">Dodatkowe uwagi</label>
-        <textarea id="orderMessage" name="Uwagi" class="form-control"></textarea>
-    </div>
-    <button type="submit" class="submit-btn">Potwierdź zamówienie <i class="fas fa-check"></i></button>
-</form>
-            
-            <a href="#offer" class="back-to-offer" onclick="closeModal()"><i class="fas fa-arrow-left"></i> Wróć do oferty</a>
-        </div>
-    </div>
-    // Funkcja do obsługi formularzy
-function setupForm(formId, successMessage) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Aktualizuj ukryte pola przed wysłaniem
-        if (formId === 'orderForm') {
-            const productName = document.getElementById('modalProductName').textContent;
-            const productPrice = document.getElementById('modalProductPrice').textContent;
-            document.getElementById('formProductName').value = productName;
-            document.getElementById('formProductPrice').value = productPrice;
-        }
-
-        // Pokazanie powiadomienia
-        showNotification(successMessage);
-        
-        // Opóźnione wysłanie formularza
-        setTimeout(() => {
-            form.submit();
-        }, 1500);
-    });
-}
-
-// Inicjalizacja formularzy po załadowaniu DOM
-document.addEventListener('DOMContentLoaded', function() {
-    setupForm('contactForm', 'Wiadomość została wysłana! Dziękujemy za kontakt.');
-    setupForm('orderForm', 'Zamówienie zostało wysłane! Skontaktujemy się w celu potwierdzenia.');
-});
-    <!-- Powiadomienie -->
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i>
-        <div class="notification-content">
-            <h4>Sukces!</h4>
-            <p id="notificationText">Twoje zamówienie zostało wysłane.</p>
-        </div>
-        <span class="close-notification" onclick="closeNotification()">&times;</span>
-    </div>
 
     <script>
-        // Dane produktów - będą aktualizowane z localStorage
-        let products = {
-            1: {
-                name: 'Zjeżdżalnia Mistrzów',
-                price: '600',
-                available: true,
-                img: 'https://i.imgur.com/cgYJoWj.jpeg'
-            },
-            2: {
-                name: 'Zamek Radości',
-                price: '600',
-                available: true,
-                img: 'https://i.imgur.com/lr525mm.jpeg'
-            },
-            3: {
-                name: 'Małpi Raj',
-                price: '600',
-                available: true,
-                img: 'https://i.imgur.com/MY9DclT.jpeg'
-            }
-        };
-
-        // Ładowanie danych z localStorage przy starcie
-        function loadProductData() {
-            const savedProducts = localStorage.getItem('dmuchanceProducts');
-            if (savedProducts) {
-                products = JSON.parse(savedProducts);
-                updateProductDisplays();
-            }
-        }
-
-        // Aktualizacja wyświetlania produktów na stronie
-        function updateProductDisplays() {
-            for (let i = 1; i <= 3; i++) {
-                const product = products[i];
-                const card = document.querySelector(`.offer-card[data-product="${i}"]`);
-                
-                if (card) {
-                    // Aktualizacja dostępności
-                    const availability = card.querySelector('.availability');
-                    if (product.available) {
-                        availability.textContent = 'Dostępny';
-                        availability.className = 'availability available';
-                    } else {
-                        availability.textContent = 'Niedostępny';
-                        availability.className = 'availability unavailable';
+        // Proste animacje przy scrollu
+        document.addEventListener('DOMContentLoaded', function() {
+            const offerCards = document.querySelectorAll('.offer-card');
+            
+            const animateOnScroll = () => {
+                offerCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if(cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 150 * index);
                     }
-                    
-                    // Aktualizacja ceny
-                    const priceElement = card.querySelector('.price');
-                    priceElement.textContent = product.price + ' zł/dzień';
-                    
-                    // Aktualizacja nazwy produktu
-                    const nameElement = card.querySelector('h3');
-                    nameElement.textContent = product.name;
-                }
-            }
-        }
-
-        // Funkcje dla modala zamówienia
-        function openModal(productId) {
-            const product = products[productId];
+                });
+            };
             
-            if (!product.available) {
-                showNotification('Ten produkt jest obecnie niedostępny. Prosimy o kontakt telefoniczny.', true);
-                return;
-            }
-            
-            // Uzupełnij dane produktu w modal
-            document.getElementById('modalProductName').textContent = product.name;
-            document.getElementById('modalProductPrice').textContent = product.price + ' zł/dzień';
-            document.getElementById('modalProductImg').src = product.img;
-            document.getElementById('formProductName').value = product.name;
-            document.getElementById('formProductPrice').value = product.price + ' zł/dzień';
-            
-            // Pokaż modal
-            document.body.style.overflow = 'hidden';
-            document.getElementById('orderModal').classList.add('show');
-        }
-        
-        function closeModal() {
-            document.body.style.overflow = 'auto';
-            document.getElementById('orderModal').classList.remove('show');
-        }
-
-        // Funkcje powiadomień
-        function showNotification(message, isError = false) {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notificationText');
-            
-            notificationText.textContent = message;
-            
-            if (isError) {
-                notification.classList.add('error');
-                notification.querySelector('i').className = 'fas fa-exclamation-circle';
-                notification.querySelector('h4').textContent = 'Błąd!';
-            } else {
-                notification.classList.remove('error');
-                notification.querySelector('i').className = 'fas fa-check-circle';
-                notification.querySelector('h4').textContent = 'Sukces!';
-            }
-            
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
-        }
-        
-        function closeNotification() {
-            document.getElementById('notification').classList.remove('show');
-        }
-
-        // Obsługa formularzy
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Tutaj można dodać kod wysyłający formularz
-            showNotification('Wiadomość została wysłana! Dziękujemy za kontakt.');
-            this.reset();
-        });
-
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Tutaj można dodać kod wysyłający zamówienie
-            showNotification('Zamówienie zostało wysłane! Skontaktujemy się w celu potwierdzenia.');
-            this.reset();
-            closeModal();
-        });
-
-        // Inicjalizacja daty w formularzu zamówienia
-        window.onload = function() {
-            const today = new Date();
-            const dd = String(today.getDate() + 1).padStart(2, '0');
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const yyyy = today.getFullYear();
-            
-            const minDate = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('orderDate').min = minDate;
-            
-            // Załaduj dane produktów
-            loadProductData();
-        };
-
-        // Animacje scrolla dla nawigacji
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-            
-            // Aktywne sekcje w nawigacji
-            const sections = document.querySelectorAll('section');
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 300) {
-                    current = section.getAttribute('id');
-                }
+            // Ustaw początkowe style dla animacji
+            offerCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             });
             
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-        
-        // Płynne przewijanie do sekcji
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Nasłuchiwanie zmian w localStorage (aktualizacje z panelu admina)
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'dmuchanceProducts') {
-                products = JSON.parse(e.newValue);
-                updateProductDisplays();
-            }
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Wywołaj na starcie
         });
     </script>
 </body>
