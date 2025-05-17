@@ -149,7 +149,64 @@
             font-weight: 700;
         }
 
-        /* Call-to-action */
+        /* Sekcja kontaktowa */
+        .contact-section {
+            background: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .contact-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: rotate(15deg) scale(1.2);
+            color: var(--secondary);
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+        }
+
+        .contact-info a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .contact-info a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Sekcja CTA */
         .cta-section {
             text-align: center;
             padding: 5rem 0;
@@ -164,21 +221,6 @@
             font-weight: 600;
         }
 
-        .phone-number {
-            display: inline-block;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            margin: 1rem 0;
-            transition: var(--transition);
-        }
-
-        .phone-number:hover {
-            transform: scale(1.05);
-            color: var(--secondary);
-        }
-
         /* Responsywność */
         @media (max-width: 768px) {
             h1 {
@@ -188,11 +230,15 @@
             .price-tag {
                 font-size: 1.5rem;
             }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Nagłózek -->
+    <!-- Nagłówek -->
     <header>
         <div class="header-content">
             <h1><i class="fas fa-cloud"></i> Wypożyczalnia Dmuchańców</h1>
@@ -246,47 +292,100 @@
             </div>
         </section>
 
+        <!-- Sekcja kontaktowa -->
+        <section class="contact-section">
+            <h2>Skontaktuj się z nami</h2>
+            <p>Masz pytania? Chcesz zarezerwować termin? Jesteśmy do Twojej dyspozycji!</p>
+            
+            <div class="contact-container">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Telefon</h3>
+                    <div class="contact-info">
+                        <a href="tel:+48123456789">+48 123 456 789</a>
+                        <p>Godziny: 8:00 - 20:00</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <div class="contact-info">
+                        <a href="mailto:kontakt@dmuchance.pl">kontakt@dmuchance.pl</a>
+                        <p>Odpowiadamy w ciągu 24h</p>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Adres</h3>
+                    <div class="contact-info">
+                        <p>ul. Wesoła 123</p>
+                        <p>00-000 Warszawa</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Sekcja CTA -->
         <section class="cta-section">
             <div class="container">
-                <h2>Zainteresowany?</h2>
-                <p class="cta-text">Zadzwoń i zarezerwuj termin już dziś!</p>
-                <a href="tel:+48123456789" class="phone-number">
-                    <i class="fas fa-phone"></i> +48 123 456 789
-                </a>
-                <p>Dostępność ograniczona - rezerwuj z wyprzedzeniem!</p>
+                <h2>Zarezerwuj już dziś!</h2>
+                <p class="cta-text">Mamy ograniczoną liczbę dmuchańców - nie zwlekaj!</p>
+                <div style="margin-top: 2rem;">
+                    <a href="tel:+48123456789" class="contact-info" style="font-size: 1.5rem; display: inline-block;">
+                        <i class="fas fa-phone-alt" style="margin-right: 10px;"></i> Zadzwoń teraz
+                    </a>
+                </div>
             </div>
         </section>
     </main>
 
     <script>
-        // Proste animacje przy scrollu
+        // Animacje przy scrollu
         document.addEventListener('DOMContentLoaded', function() {
-            const offerCards = document.querySelectorAll('.offer-card');
+            const animateElements = document.querySelectorAll('.offer-card, .contact-card');
             
             const animateOnScroll = () => {
-                offerCards.forEach((card, index) => {
-                    const cardPosition = card.getBoundingClientRect().top;
+                animateElements.forEach((element, index) => {
+                    const elementPosition = element.getBoundingClientRect().top;
                     const screenPosition = window.innerHeight / 1.3;
                     
-                    if(cardPosition < screenPosition) {
+                    if(elementPosition < screenPosition) {
                         setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
+                            element.style.opacity = '1';
+                            element.style.transform = 'translateY(0)';
                         }, 150 * index);
                     }
                 });
             };
             
             // Ustaw początkowe style dla animacji
-            offerCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(50px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            animateElements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             });
             
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll(); // Wywołaj na starcie
+            
+            // Animacja ikon kontaktowych
+            const contactIcons = document.querySelectorAll('.contact-icon');
+            contactIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    icon.style.transform = 'rotate(15deg) scale(1.2)';
+                });
+                icon.addEventListener('mouseleave', () => {
+                    icon.style.transform = '';
+                });
+            });
         });
     </script>
 </body>
