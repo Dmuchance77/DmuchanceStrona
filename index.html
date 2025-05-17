@@ -1481,17 +1481,33 @@
     let products = [];
 
     // Funkcja ładująca produkty z localStorage
-    function loadProducts() {
-        const savedProducts = localStorage.getItem('inflatableProducts');
-        if (savedProducts) {
-            products = JSON.parse(savedProducts);
-        } else {
+function loadProducts() {
+    // Najpierw sprawdź localStorage
+    const savedProducts = localStorage.getItem('inflatableProducts');
+    
+    if (savedProducts) {
+        products = JSON.parse(savedProducts);
+    } else {
+        // Jeśli brak danych, użyj domyślnych i zapisz
+        products = [...]; // Twoje domyślne produkty
+        localStorage.setItem('inflatableProducts', JSON.stringify(products));
+    }
+    
+    renderProducts();
+}
+
+// Nasłuchuj zmian w localStorage
+window.addEventListener('storage', function(e) {
+    if (e.key === 'inflatableProducts') {
+        loadProducts();
+    }
+});
             // Domyślne dane jeśli nie ma w localStorage
             products = [
                 {
                     id: 1,
                     name: 'Zjeżdżalnia XXL',
-                    price: 300,
+                    price: 600,
                     available: true,
                     img: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
                     details: [
@@ -1503,7 +1519,7 @@
                 {
                     id: 2,
                     name: 'Zamek do skakania',
-                    price: 250,
+                    price: 600,
                     available: true,
                     img: 'https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
                     details: [
@@ -1515,8 +1531,8 @@
                 {
                     id: 3,
                     name: 'Kombajn atrakcji',
-                    price: 500,
-                    available: false,
+                    price: 600,
+                    available: true,
                     img: 'https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
                     details: [
                         { icon: 'fas fa-ruler-combined', text: 'Wymiary: 10m x 6m x 4m' },
