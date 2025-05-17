@@ -19,6 +19,7 @@
             --error: #FF6B6B;
             --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.2);
         }
 
         * {
@@ -33,6 +34,32 @@
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 107, 107, 0.2);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
 
         /* Animacje */
@@ -43,7 +70,7 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
 
         @keyframes pulse {
@@ -58,13 +85,18 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Nagłówek */
         header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             background-size: 200% 200%;
             animation: gradientBG 8s ease infinite;
             color: white;
-            padding: 6rem 0 8rem;
+            padding: 8rem 0 10rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -83,11 +115,19 @@
             z-index: -1;
         }
 
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite, rotate 20s linear infinite;
+        }
+
         .header-content {
             max-width: 800px;
             margin: 0 auto;
             padding: 0 2rem;
             animation: fadeIn 1s ease-out;
+            position: relative;
         }
 
         h1 {
@@ -96,6 +136,25 @@
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
             animation: fadeIn 0.8s ease-out;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .header-content:hover h1::after {
+            width: 120px;
         }
 
         .header-content p {
@@ -120,43 +179,46 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+            transition: var(--transition);
+            z-index: -1;
         }
 
         .cta-button:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-hover);
             animation: none;
         }
 
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
+        .cta-button:hover::before {
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .cta-button:hover::after {
-            opacity: 1;
         }
 
         /* Nawigacja */
         nav {
             background-color: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
             transition: var(--transition);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         nav.scrolled {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-hover);
+            background-color: rgba(255,255,255,0.98);
         }
 
         .nav-container {
@@ -178,6 +240,22 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .logo:hover::after {
+            width: 100%;
         }
 
         .logo i {
@@ -185,12 +263,8 @@
             transition: var(--transition);
         }
 
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
         .logo:hover i {
-            transform: rotate(15deg);
+            transform: rotate(15deg) scale(1.1);
         }
 
         .nav-links {
@@ -238,6 +312,7 @@
 
         section {
             padding: 7rem 0;
+            position: relative;
         }
 
         .section-title {
@@ -295,11 +370,13 @@
             transition: var(--transition);
             position: relative;
             transform-style: preserve-3d;
+            perspective: 1000px;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .offer-card:hover {
-            transform: translateY(-15px) rotateX(5deg);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transform: translateY(-15px) rotateX(5deg) scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
 
         .availability {
@@ -311,8 +388,10 @@
             font-weight: 700;
             font-size: 0.9rem;
             z-index: 2;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             animation: fadeIn 0.5s ease-out;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .available {
@@ -353,10 +432,21 @@
             font-size: 1.6rem;
             font-family: 'Montserrat', sans-serif;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offer-content h3 i {
+            transition: var(--transition);
         }
 
         .offer-card:hover .offer-content h3 {
             color: var(--secondary);
+        }
+
+        .offer-card:hover .offer-content h3 i {
+            transform: rotate(15deg) scale(1.2);
         }
 
         .price {
@@ -411,9 +501,26 @@
             cursor: pointer;
             width: 100%;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            z-index: 1;
+        }
+
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .order-btn:hover::before {
+            left: 0;
         }
 
         .order-btn i {
@@ -422,28 +529,11 @@
 
         .order-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            background: linear-gradient(to right, var(--secondary), var(--primary));
+            box-shadow: var(--shadow-hover);
         }
 
         .order-btn:hover i {
             transform: translateX(5px);
-        }
-
-        .order-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .order-btn:hover::after {
-            opacity: 1;
         }
 
         /* Galeria */
@@ -465,7 +555,7 @@
 
         .gallery-item:hover {
             transform: translateY(-10px) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-hover);
         }
 
         .gallery-img {
@@ -477,6 +567,24 @@
 
         .gallery-item:hover .gallery-img {
             transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         /* Kontakt */
@@ -493,10 +601,12 @@
             border-radius: 20px;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .contact-info:hover {
             transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
         }
 
         .contact-item {
@@ -523,7 +633,7 @@
             font-size: 1.8rem;
             flex-shrink: 0;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
 
         .contact-item:hover .contact-icon {
@@ -556,10 +666,12 @@
             border-radius: 20px;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .contact-form:hover {
             transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
         }
 
         .form-group {
@@ -606,19 +718,37 @@
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             font-size: 1.1rem;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .submit-btn:hover::before {
+            left: 0;
         }
 
         .submit-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            background: linear-gradient(to right, var(--secondary), var(--primary));
+            box-shadow: var(--shadow-hover);
         }
 
         .submit-btn i {
@@ -669,6 +799,24 @@
             background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .footer-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .footer-logo:hover::after {
+            width: 120px;
         }
 
         .footer-logo i {
@@ -738,12 +886,13 @@
             transition: var(--transition);
             font-size: 1.4rem;
             backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .social-link:hover {
             background: var(--primary);
             transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-hover);
         }
 
         .copyright {
@@ -759,10 +908,14 @@
             text-decoration: none;
             transition: var(--transition);
             font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
         }
 
         .admin-link:hover {
             color: var(--accent);
+            background: rgba(255,230,109,0.2);
         }
 
         /* Modal zamówienia */
@@ -796,7 +949,7 @@
             position: relative;
             transform: translateY(50px);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-hover);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -850,7 +1003,7 @@
             height: 80px;
             border-radius: 15px;
             object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
 
         .modal-product-info h4 {
@@ -874,6 +1027,9 @@
             margin-top: 2rem;
             transition: var(--transition);
             font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 107, 107, 0.1);
         }
 
         .back-to-offer i {
@@ -882,6 +1038,8 @@
 
         .back-to-offer:hover {
             color: var(--secondary);
+            background: rgba(78, 205, 196, 0.2);
+            transform: translateX(-5px);
         }
 
         .back-to-offer:hover i {
@@ -897,14 +1055,15 @@
             color: white;
             padding: 18px 25px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-hover);
             z-index: 3000;
             transform: translateX(200%);
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             max-width: 400px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .notification.show {
@@ -1049,8 +1208,17 @@
     </style>
 </head>
 <body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+    
     <!-- Nagłówek -->
     <header>
+        <!-- Floating icons -->
+        <i class="fas fa-cloud floating-icon" style="top: 20%; left: 10%; animation-delay: 0s;"></i>
+        <i class="fas fa-child floating-icon" style="top: 30%; right: 15%; animation-delay: 1s;"></i>
+        <i class="fas fa-smile floating-icon" style="top: 70%; left: 20%; animation-delay: 2s;"></i>
+        <i class="fas fa-star floating-icon" style="top: 60%; right: 10%; animation-delay: 3s;"></i>
+        
         <div class="header-content">
             <h1><i class="fas fa-cloud"></i> Wypożyczalnia dmuchańców</h1>
             <p>Najlepsze atrakcje dla dzieci na imprezy plenerowe i eventy!</p>
@@ -1078,60 +1246,8 @@
                 <h2>Nasza Oferta</h2>
                 <p>Wybierz idealną atrakcję dla swojej imprezy</p>
             </div>
-            <div class="offer-grid">
-                <!-- Produkt 1 -->
-                <div class="offer-card" data-product="1">
-                    <div class="availability available">Dostępny</div>
-                    <div class="offer-img-container">
-                        <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zjeżdżalnia XXL" class="offer-img">
-                    </div>
-                    <div class="offer-content">
-                        <h3>Zjeżdżalnia XXL</h3>
-                        <span class="price">300 zł/dzień</span>
-                        <div class="offer-details">
-                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 8m x 5m x 5m</p>
-                            <p><i class="fas fa-users"></i> Dla dzieci 5-12 lat</p>
-                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
-                        </div>
-                        <button class="order-btn" onclick="openModal(1)">Zamów teraz <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-                
-                <!-- Produkt 2 -->
-                <div class="offer-card" data-product="2">
-                    <div class="availability available">Dostępny</div>
-                    <div class="offer-img-container">
-                        <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zamek do skakania" class="offer-img">
-                    </div>
-                    <div class="offer-content">
-                        <h3>Zamek do skakania</h3>
-                        <span class="price">250 zł/dzień</span>
-                        <div class="offer-details">
-                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 5m x 5m x 3m</p>
-                            <p><i class="fas fa-users"></i> Dla dzieci 3-10 lat</p>
-                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
-                        </div>
-                        <button class="order-btn" onclick="openModal(2)">Zamów teraz <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-                
-                <!-- Produkt 3 -->
-                <div class="offer-card" data-product="3">
-                    <div class="availability unavailable">Niedostępny</div>
-                    <div class="offer-img-container">
-                        <img src="https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kombajn atrakcji" class="offer-img">
-                    </div>
-                    <div class="offer-content">
-                        <h3>Kombajn atrakcji</h3>
-                        <span class="price">500 zł/dzień</span>
-                        <div class="offer-details">
-                            <p><i class="fas fa-ruler-combined"></i> Wymiary: 10m x 6m x 4m</p>
-                            <p><i class="fas fa-users"></i> Dla dzieci w każdym wieku</p>
-                            <p><i class="fas fa-truck"></i> Transport w cenie</p>
-                        </div>
-                        <button class="order-btn" onclick="openModal(3)">Zamów teraz <i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
+            <div class="offer-grid" id="offerGrid">
+                <!-- Produkty będą wstawiane dynamicznie przez JS -->
             </div>
         </section>
         
@@ -1143,319 +1259,453 @@
             </div>
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zjeżdżalnia" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zamek" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1596484552834-6a58f
-                      <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kombajn" class="gallery-img">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1608889825103-ebeeb6d97423?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Event" class="gallery-img">
-                </div>
-            </div>
-        </section>
-        
-        <!-- Sekcja Kontakt -->
-        <section id="contact">
-            <div class="section-title">
-                <h2>Kontakt</h2>
-                <p>Skontaktuj się z nami i zarezerwuj termin</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Dane kontaktowe</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Telefon</h4>
-                            <p><a href="tel:+48123456789">+48 123 456 789</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Email</h4>
-                            <p><a href="mailto:kontakt@dmuchance.pl">kontakt@dmuchance.pl</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Adres</h4>
-                            <p>ul. Wesoła 123, 00-000 Warszawa</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h3>Formularz kontaktowy</h3>
-                    <form action="https://formsubmit.co/twoj@email.com" method="POST">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="Nowa wiadomość z dmuchance.pl">
-                        <div class="form-group">
-                            <label for="name">Imię i nazwisko</label>
-                            <input type="text" id="name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Telefon</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Wiadomość</label>
-                            <textarea id="message" name="message" class="form-control" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Wyślij wiadomość <i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Stopka -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo"><i class="fas fa-cloud"></i> DMUCHANCE.PL</div>
-            <p class="footer-text">Profesjonalna wypożyczalnia dmuchańców na eventy i imprezy plenerowe</p>
-            <div class="footer-links">
-                <a href="#offer">Oferta</a>
-                <a href="#gallery">Galeria</a>
-                <a href="#contact">Kontakt</a>
-                <a href="admin.html" class="admin-link">Panel Admina</a>
-            </div>
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="copyright">© 2024 Wypożyczalnia Dmuchance.pl. Wszelkie prawa zastrzeżone.</p>
-        </div>
-    </footer>
-    
-    <!-- Modal zamówienia -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h3 class="modal-title">Złóż zamówienie</h3>
-            
-            <div class="modal-product">
-                <img src="" alt="" class="modal-product-img" id="modalProductImg">
-                <div class="modal-product-info">
-                    <h4 id="modalProductName">Zjeżdżalnia XXL</h4>
-                    <div class="price" id="modalProductPrice">300 zł/dzień</div>
-                </div>
-            </div>
-            
-            <form action="https://formsubmit.co/twoj@email.com" method="POST" id="orderForm">
-                <input type="hidden" name="_subject" value="Nowe zamówienie - Dmuchance.pl">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="product" id="formProductName">
-                <input type="hidden" name="price" id="formProductPrice">
-                
-                <div class="form-group">
-                    <label for="orderName">Imię i nazwisko</label>
-                    <input type="text" id="orderName" name="name" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="orderEmail">Email</label>
-                    <input type="email" id="orderEmail" name="email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="orderPhone">Telefon</label>
-                    <input type="tel" id="orderPhone" name="phone" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="orderDate">Data wynajmu</label>
-                    <input type="date" id="orderDate" name="date" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="orderAddress">Miejsce dostawy (adres)</label>
-                    <input type="text" id="orderAddress" name="address" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="orderMessage">Dodatkowe uwagi</label>
-                    <textarea id="orderMessage" name="message" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Potwierdź zamówienie <i class="fas fa-check"></i></button>
-            </form>
-            
-            <a href="#offer" class="back-to-offer" onclick="closeModal()"><i class="fas fa-arrow-left"></i> Wróć do oferty</a>
-        </div>
-    </div>
-    
-    <!-- Powiadomienie -->
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i>
-        <div class="notification-content">
-            <h4>Sukces!</h4>
-            <p id="notificationText">Twoje zamówienie zostało wysłane.</p>
-        </div>
-        <span class="close-notification" onclick="closeNotification()">&times;</span>
+        <section class="gallery-section">
+            <div class="gallery">
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zjeżdżalnia" class="gallery-img">
+      <div class="gallery-caption">
+        <h3>Zjeżdżalnia XXL</h3>
+        <p>Dzieci uwielbiają naszą gigantyczną zjeżdżalnię!</p>
+      </div>
     </div>
 
-    <script>
-        // Dane produktów
-        const products = {
-            1: {
-                name: 'Zjeżdżalnia XXL',
-                price: '300',
-                available: true,
-                img: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-            },
-            2: {
-                name: 'Zamek do skakania',
-                price: '250',
-                available: true,
-                img: 'https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-            },
-            3: {
-                name: 'Kombajn atrakcji',
-                price: '500',
-                available: false,
-                img: 'https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-            }
-        };
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zamek" class="gallery-img">
+      <div class="gallery-caption">
+        <h3>Zamek do skakania</h3>
+        <p>Godziny świetnej zabawy w naszym zamku!</p>
+      </div>
+    </div>
 
-        // Funkcje dla modala zamówienia
-        function openModal(productId) {
-            const product = products[productId];
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kombajn" class="gallery-img">
+      <div class="gallery-caption">
+        <h3>Kombajn atrakcji</h3>
+        <p>Wszystkie atrakcje w jednym miejscu!</p>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1608889825103-ebeeb6d97423?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Event" class="gallery-img">
+      <div class="gallery-caption">
+        <h3>Eventy</h3>
+        <p>Organizujemy niezapomniane imprezy!</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+    <!-- Sekcja Kontakt -->
+    <section id="contact">
+        <div class="section-title">
+            <h2>Kontakt</h2>
+            <p>Skontaktuj się z nami i zarezerwuj termin</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Dane kontaktowe</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Telefon</h4>
+                        <p><a href="tel:+48123456789">+48 123 456 789</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Email</h4>
+                        <p><a href="mailto:kontakt@dmuchance.pl">kontakt@dmuchance.pl</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Adres</h4>
+                        <p>ul. Wesoła 123, 00-000 Warszawa</p>
+                    </div>
+                </div>
+            </div>
             
-            if (!product.available) {
-                showNotification('Ten produkt jest obecnie niedostępny. Prosimy o kontakt telefoniczny.', true);
-                return;
-            }
+            <div class="contact-form">
+                <h3>Formularz kontaktowy</h3>
+                <form id="contactForm" action="https://formsubmit.co/twoj@email.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="Nowa wiadomość z dmuchance.pl">
+                    <div class="form-group">
+                        <label for="name">Imię i nazwisko</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Wiadomość</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Wyślij wiadomość <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Stopka -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo"><i class="fas fa-cloud"></i> DMUCHANCE.PL</div>
+        <p class="footer-text">Profesjonalna wypożyczalnia dmuchańców na eventy i imprezy plenerowe</p>
+        <div class="footer-links">
+            <a href="#offer">Oferta</a>
+            <a href="#gallery">Galeria</a>
+            <a href="#contact">Kontakt</a>
+            <a href="admin.html" class="admin-link">Panel Admina</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2024 Wypożyczalnia Dmuchance.pl. Wszelkie prawa zastrzeżone.</p>
+    </div>
+</footer>
+
+<!-- Modal zamówienia -->
+<div class="modal" id="orderModal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 class="modal-title">Złóż zamówienie</h3>
+        
+        <div class="modal-product">
+            <img src="" alt="" class="modal-product-img" id="modalProductImg">
+            <div class="modal-product-info">
+                <h4 id="modalProductName">Zjeżdżalnia XXL</h4>
+                <div class="price" id="modalProductPrice">300 zł/dzień</div>
+            </div>
+        </div>
+        
+        <form id="orderForm" action="https://formsubmit.co/twoj@email.com" method="POST">
+            <input type="hidden" name="_subject" value="Nowe zamówienie - Dmuchance.pl">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="product" id="formProductName">
+            <input type="hidden" name="price" id="formProductPrice">
             
-            // Uzupełnij dane produktu w modal
-            document.getElementById('modalProductName').textContent = product.name;
-            document.getElementById('modalProductPrice').textContent = product.price + ' zł/dzień';
-            document.getElementById('modalProductImg').src = product.img;
-            document.getElementById('formProductName').value = product.name;
-            document.getElementById('formProductPrice').value = product.price + ' zł/dzień';
+            <div class="form-group">
+                <label for="orderName">Imię i nazwisko</label>
+                <input type="text" id="orderName" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="orderEmail">Email</label>
+                <input type="email" id="orderEmail" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="orderPhone">Telefon</label>
+                <input type="tel" id="orderPhone" name="phone" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="orderDate">Data wynajmu</label>
+                <input type="date" id="orderDate" name="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="orderAddress">Miejsce dostawy (adres)</label>
+                <input type="text" id="orderAddress" name="address" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="orderMessage">Dodatkowe uwagi</label>
+                <textarea id="orderMessage" name="message" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Potwierdź zamówienie <i class="fas fa-check"></i></button>
+        </form>
+        
+        <a href="#offer" class="back-to-offer" onclick="closeModal()"><i class="fas fa-arrow-left"></i> Wróć do oferty</a>
+    </div>
+</div>
+
+<!-- Powiadomienie -->
+<div class="notification" id="notification">
+    <i class="fas fa-check-circle"></i>
+    <div class="notification-content">
+        <h4>Sukces!</h4>
+        <p id="notificationText">Twoje zamówienie zostało wysłane.</p>
+    </div>
+    <span class="close-notification" onclick="closeNotification()">&times;</span>
+</div>
+
+<script>
+    // Create floating particles
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
             
-            // Pokaż modal
-            document.body.style.overflow = 'hidden';
-            document.getElementById('orderModal').classList.add('show');
+            // Random size between 5px and 15px
+            const size = Math.random() * 10 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random position
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration between 10s and 20s
+            const duration = Math.random() * 10 + 15;
+            particle.style.animationDuration = `${duration}s`;
+            
+            // Random delay
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            // Random opacity
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    createParticles();
+
+    // Dane produktów - będą ładowane z localStorage
+    let products = [];
+
+    // Funkcja ładująca produkty z localStorage
+    function loadProducts() {
+        const savedProducts = localStorage.getItem('inflatableProducts');
+        if (savedProducts) {
+            products = JSON.parse(savedProducts);
+        } else {
+            // Domyślne dane jeśli nie ma w localStorage
+            products = [
+                {
+                    id: 1,
+                    name: 'Zjeżdżalnia XXL',
+                    price: 300,
+                    available: true,
+                    img: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    details: [
+                        { icon: 'fas fa-ruler-combined', text: 'Wymiary: 8m x 5m x 5m' },
+                        { icon: 'fas fa-users', text: 'Dla dzieci 5-12 lat' },
+                        { icon: 'fas fa-truck', text: 'Transport w cenie' }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: 'Zamek do skakania',
+                    price: 250,
+                    available: true,
+                    img: 'https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    details: [
+                        { icon: 'fas fa-ruler-combined', text: 'Wymiary: 5m x 5m x 3m' },
+                        { icon: 'fas fa-users', text: 'Dla dzieci 3-10 lat' },
+                        { icon: 'fas fa-truck', text: 'Transport w cenie' }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: 'Kombajn atrakcji',
+                    price: 500,
+                    available: false,
+                    img: 'https://images.unsplash.com/photo-1608889825271-9696281f4d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    details: [
+                        { icon: 'fas fa-ruler-combined', text: 'Wymiary: 10m x 6m x 4m' },
+                        { icon: 'fas fa-users', text: 'Dla dzieci w każdym wieku' },
+                        { icon: 'fas fa-truck', text: 'Transport w cenie' }
+                    ]
+                }
+            ];
+            
+            // Zapisz domyślne dane do localStorage
+            localStorage.setItem('inflatableProducts', JSON.stringify(products));
         }
         
-        function closeModal() {
-            document.body.style.overflow = 'auto';
-            document.getElementById('orderModal').classList.remove('show');
-        }
+        // Wygeneruj ofertę na stronie
+        renderProducts();
+    }
 
-        // Funkcje powiadomień
-        function showNotification(message, isError = false) {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notificationText');
+    // Funkcja renderująca produkty na stronie
+    function renderProducts() {
+        const offerGrid = document.getElementById('offerGrid');
+        offerGrid.innerHTML = '';
+        
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'offer-card';
+            productCard.setAttribute('data-product', product.id);
             
-            notificationText.textContent = message;
+            productCard.innerHTML = `
+                <div class="availability ${product.available ? 'available' : 'unavailable'}">
+                    ${product.available ? 'Dostępny' : 'Niedostępny'}
+                </div>
+                <div class="offer-img-container">
+                    <img src="${product.img}" alt="${product.name}" class="offer-img">
+                </div>
+                <div class="offer-content">
+                    <h3><i class="fas fa-${product.id === 1 ? 'slide' : product.id === 2 ? 'chess-rook' : 'star'}"></i> ${product.name}</h3>
+                    <span class="price">${product.price} zł/dzień</span>
+                    <div class="offer-details">
+                        ${product.details.map(detail => `
+                            <p><i class="${detail.icon}"></i> ${detail.text}</p>
+                        `).join('')}
+                    </div>
+                    <button class="order-btn" onclick="openModal(${product.id})">
+                        ${product.available ? 'Zamów teraz' : 'Zapytaj o termin'} 
+                        <i class="fas fa-${product.available ? 'arrow-right' : 'question'}"></i>
+                    </button>
+                </div>
+            `;
             
-            if (isError) {
-                notification.classList.add('error');
-                notification.querySelector('i').className = 'fas fa-exclamation-circle';
-                notification.querySelector('h4').textContent = 'Błąd!';
-            } else {
-                notification.classList.remove('error');
-                notification.querySelector('i').className = 'fas fa-check-circle';
-                notification.querySelector('h4').textContent = 'Sukces!';
-            }
-            
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
+            offerGrid.appendChild(productCard);
+        });
+    }
+
+    // Funkcje dla modala zamówienia
+    function openModal(productId) {
+        const product = products.find(p => p.id === productId);
+        
+        if (!product.available) {
+            showNotification('Ten produkt jest obecnie niedostępny. Prosimy o kontakt telefoniczny.', true);
+            return;
         }
         
-        function closeNotification() {
-            document.getElementById('notification').classList.remove('show');
-        }
+        // Uzupełnij dane produktu w modal
+        document.getElementById('modalProductName').textContent = product.name;
+        document.getElementById('modalProductPrice').textContent = product.price + ' zł/dzień';
+        document.getElementById('modalProductImg').src = product.img;
+        document.getElementById('formProductName').value = product.name;
+        document.getElementById('formProductPrice').value = product.price + ' zł/dzień';
+        
+        // Pokaż modal
+        document.body.style.overflow = 'hidden';
+        document.getElementById('orderModal').classList.add('show');
+    }
+    
+    function closeModal() {
+        document.body.style.overflow = 'auto';
+        document.getElementById('orderModal').classList.remove('show');
+    }
 
-        // Obsługa formularzy
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // Funkcje powiadomień
+    function showNotification(message, isError = false) {
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        
+        notificationText.textContent = message;
+        
+        if (isError) {
+            notification.classList.add('error');
+            notification.querySelector('i').className = 'fas fa-exclamation-circle';
+            notification.querySelector('h4').textContent = 'Błąd!';
+        } else {
+            notification.classList.remove('error');
+            notification.querySelector('i').className = 'fas fa-check-circle';
+            notification.querySelector('h4').textContent = 'Sukces!';
+        }
+        
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 5000);
+    }
+    
+    function closeNotification() {
+        document.getElementById('notification').classList.remove('show');
+    }
+
+    // Obsługa formularzy
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Tutaj można dodać kod wysyłający formularz
+        showNotification('Wiadomość została wysłana! Dziękujemy za kontakt.');
+        this.reset();
+    });
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Tutaj można dodać kod wysyłający zamówienie
+        showNotification('Zamówienie zostało wysłane! Skontaktujemy się w celu potwierdzenia.');
+        this.reset();
+        closeModal();
+    });
+
+    // Inicjalizacja daty w formularzu zamówienia
+    window.onload = function() {
+        const today = new Date();
+        const dd = String(today.getDate() + 1).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        
+        const minDate = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('orderDate').min = minDate;
+        
+        // Załaduj produkty
+        loadProducts();
+    };
+
+    // Animacje scrolla dla nawigacji
+    window.addEventListener('scroll', function() {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+        
+        // Aktywne sekcje w nawigacji
+        const sections = document.querySelectorAll('section');
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 300) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+    
+    // Płynne przewijanie do sekcji
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            // Tutaj można dodać kod wysyłający formularz
-            showNotification('Wiadomość została wysłana! Dziękujemy za kontakt.');
-            this.reset();
-        });
-
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Tutaj można dodać kod wysyłający zamówienie
-            showNotification('Zamówienie zostało wysłane! Skontaktujemy się w celu potwierdzenia.');
-            this.reset();
-            closeModal();
-        });
-
-        // Inicjalizacja daty w formularzu zamówienia
-        window.onload = function() {
-            const today = new Date();
-            const dd = String(today.getDate() + 1).padStart(2, '0');
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const yyyy = today.getFullYear();
             
-            const minDate = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('orderDate').min = minDate;
-        };
-
-        // Animacje scrolla dla nawigacji
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
             }
-            
-            // Aktywne sekcje w nawigacji
-            const sections = document.querySelectorAll('section');
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 300) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
         });
-        
-        // Płynne przewijanie do sekcji
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+    });
+
+    // Obsługa zmian w localStorage (aktualizacja w czasie rzeczywistym)
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'inflatableProducts') {
+            loadProducts();
+        }
+    });
+</script>
