@@ -1302,7 +1302,37 @@
             <a href="#offer" class="back-to-offer" onclick="closeModal()"><i class="fas fa-arrow-left"></i> Wróć do oferty</a>
         </div>
     </div>
-    
+    // Funkcja do obsługi formularzy
+function setupForm(formId, successMessage) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Aktualizuj ukryte pola przed wysłaniem
+        if (formId === 'orderForm') {
+            const productName = document.getElementById('modalProductName').textContent;
+            const productPrice = document.getElementById('modalProductPrice').textContent;
+            document.getElementById('formProductName').value = productName;
+            document.getElementById('formProductPrice').value = productPrice;
+        }
+
+        // Pokazanie powiadomienia
+        showNotification(successMessage);
+        
+        // Opóźnione wysłanie formularza
+        setTimeout(() => {
+            form.submit();
+        }, 1500);
+    });
+}
+
+// Inicjalizacja formularzy po załadowaniu DOM
+document.addEventListener('DOMContentLoaded', function() {
+    setupForm('contactForm', 'Wiadomość została wysłana! Dziękujemy za kontakt.');
+    setupForm('orderForm', 'Zamówienie zostało wysłane! Skontaktujemy się w celu potwierdzenia.');
+});
     <!-- Powiadomienie -->
     <div class="notification" id="notification">
         <i class="fas fa-check-circle"></i>
